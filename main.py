@@ -3,17 +3,27 @@ import os
 import time
 import pyperclip
 import pandas as pd
+from pathlib import Path
+
+PASTA_PROJETO = Path(__file__).resolve().parent
 
 pyautogui.FAILSAFE = True
 pyautogui.useImageNotFoundException(False)
 
 def ler_imagem(imagem):
+    caminho_imagem = PASTA_PROJETO / imagem
+
+    print(f"Buscando arquivo em: {caminho_imagem}")
+
     coordenada = None
+
     while coordenada is None:
         coordenada = pyautogui.locateOnScreen(
-            imagem, 
-            grayscale = True, 
-            confidence = 0.8)
+            str(caminho_imagem),
+            grayscale=True,
+            confidence=0.8
+        )
+
     return coordenada
 
 def clicar_imagem(coordenada,quantidade = 1):
@@ -85,7 +95,7 @@ pyperclip.copy("")
 '''
 time.sleep(2)
 # time.sleep(30)
-df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\022__alunos_com_informacao_de_parceria_2026-07-27T16_00_39.4344432-04_00.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
+df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\Desktop\AutomatizacaoERP\totvs_sge_bot\Base_RAs\022__alunos_com_informacao_de_parceria_2026-07-27T16_00_39.4344432-04_00.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
 cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
 
 primeira_filial = True
