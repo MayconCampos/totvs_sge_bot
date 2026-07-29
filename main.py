@@ -124,31 +124,6 @@ for filial in cod_filial_unique:
             #PROCESSO DE FILTRO RA
             #Abrindo o Filtro - Aluno RA
             time.sleep(0.5)
-            coord_filtro_Ra = ler_imagem(r"location/04.Procurar_aluno/Alunos_icone.png")
-            clicar_imagem(coord_filtro_Ra,1)
-
-            #Escolhendo o tipo RA
-            time.sleep(0.5)
-            coord_tipo_RA = ler_imagem(r"location/04.Procurar_aluno/RA_pesquisa_aluno.png")
-            clicar_imagem(coord_tipo_RA,1)
-
-            #Botão executar
-            time.sleep(0.5)
-            coord_confirmando_escolha = ler_imagem(r"location/04.Procurar_aluno/executar.png")
-            clicar_imagem(coord_confirmando_escolha,1)
-
-            # Digitando RA do aluno
-            time.sleep(0.5)
-            coord_campo_pesquisa = ler_imagem(r"location/04.Procurar_aluno/campo_pesquisa_RA.png")
-            clicar_imagem(coord_campo_pesquisa,1)
-            pyautogui.write(RA)
-            # digitar("00648280")
-
-            time.sleep(0.5)
-            coord_confirma_pesquisa = ler_imagem(r"location/04.Procurar_aluno/OK.png")
-            clicar_imagem(coord_confirma_pesquisa,1)
-
-
             # ENTRANDO EM CURSOS/HABILITAÇÃO
 
             # Anexo
