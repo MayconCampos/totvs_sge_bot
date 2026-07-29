@@ -1,280 +1,180 @@
 import pyautogui
-import os
 import time
-import pyperclip
-
-pyautogui.FAILSAFE = True
-pyautogui.useImageNotFoundException(False)
+import pandas as pd
+from funcoes import *
 
 '''
-grayscale - Faz com que a comparação de imagens seja feita em tons de cinza, ignorando as cores.
-confidence - Define o quanto a imagem encontrada precisa ser parecida com a imagem de referência.
+#ABRINDO O SISTEMA DA TOTVS
+
+coord_campo_senha = ler_imagem(r"location/03.Login_TOTVS/campo_senha.png")
+clicar_imagem(coord_campo_senha,1)
+digitar("123456789")
+coord_entrar_tots = ler_imagem(r"location/03.Login_TOTVS/confirmar_senha.png")
+clicar_imagem(coord_entrar_tots,1)
+pyperclip.copy("")
 '''
-'''
-#No meu computador o RGE não é um executavel - .rdp (Conexão de Área de Trabalho Remota).
-os.startfile(r
-"C:\\Users\\manoel.campos\\OneDrive - SFIEMT\\Área de Trabalho\\SGE PROD 1.rdp")
-time.sleep(1)
-# #entrar no SGE
-# while not pyautogui.locateOnScreen(r"location/inicio.png", grayscale = True, confidence = 0.8):
-#     time.sleep(1)
 
-
-#ENTRAR NO RDP DA TOTV's
-
-# Selecionando "Unidade"
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/01.Conexao_RDP/menu_inicial_1.png", grayscale = True, confidence = 0.8)
-    time.sleep(1)
-pyautogui.click(pyautogui.center(encontrou))
-
-# Selecionando "Area de transferência"
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/01.Conexao_RDP/menu_inicial_2.png", grayscale = True, confidence = 0.8)
-    time.sleep(1)
-pyautogui.click(pyautogui.center(encontrou))
-
-#Passando pela primeira janela de conexão do TOTV's
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/01.Conexao_RDP/primeira_janela_conectar.png", grayscale = True, confidence = 0.8)
-    time.sleep(1)
-pyautogui.click(pyautogui.center(encontrou))
-
-# PASSANDO SENHA DO WINDOWNS
-
-# achando o campo de senha e escrevendo a senha
 time.sleep(2)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/02.Senha_windows/campo_senha_1.png", grayscale = True, confidence = 0.8)
-    time.sleep(1)
+# time.sleep(30)
+df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\Desktop\AutomatizacaoERP\totvs_sge_bot\Base_RAs\022__alunos_com_informacao_de_parceria_2026-07-27T16_00_39.4344432-04_00.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
+cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
 
-#Move o mouse até o centro da imagem
-x, y = pyautogui.center(encontrou)
+primeira_filial = True
+for filial in cod_filial_unique:
 
-x_campo = x + 120
-y_campo = y + 35
+    df_filtrada = df_base_ra[df_base_ra["CodFilialSGE"] == filial]
+    #Status zero é o primeiro laço do loop
+    primeiro_ra = True
+   
+    for RA in df_filtrada ["RegistroAluno"]:
+        if primeiro_ra:
 
-pyautogui.moveTo(x_campo, y_campo)
-time.sleep(1)
+            #TROCANDO UNIDADE DO SGE
+            #Selecionando Unidade:
+            coord_troca_unidade = ler_imagem(r"location/09.Troca_Unidade/troca_de_unidade.png")
+            personalizar_clique(coord_troca_unidade,x_deslocamento = 15, quantidade=1)
+            time.sleep(2)
 
-pyautogui.click()
-time.sleep(1)
-
-pyautogui.write("TESTE", interval=0.2)
-
-#confirmando 
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/02.Senha_windows/confirmacao_senha.png", grayscale = True, confidence = 0.8)
-    time.sleep(1)
-pyautogui.click(pyautogui.center(encontrou))
-'''
-
-# LOGIN NA TOTVs
-# achando o campo de senha e escrevendo a senha
-
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/03.Login_TOTVS/campo_senha.png", grayscale = True, confidence = 0.8)
-
-x, y = pyautogui.center(encontrou)
-pyautogui.moveTo(x,y)
-time.sleep(1)
+            if primeira_filial == False:
+                pyautogui.hotkey("alt", "tab")
+                pyautogui.hotkey("alt", "tab")
+                coord_confirmar_fechamento = ler_imagem(r"location/09.Troca_Unidade/YES.png")
+                pyautogui.press("enter")
 
 
-x_campo = x + 30
+            #Filtrando Unidade através do codigo unidade
+            coord_filtro_unidade = ler_imagem(r"location/09.Troca_Unidade/campo_filial.png")
+            personalizar_clique(coord_filtro_unidade, y_deslocamento=15, quantidade=1)
+            apagar_texto()
+            digitar(filial)
+            time.sleep(0.5)
 
-pyautogui.moveTo(x_campo, y)
-time.sleep(1)
+            #Confirmando filial
+            coord_concluir = ler_imagem(r"location/09.Troca_Unidade/CONCLUIR.png")
+            clicar_imagem(coord_concluir)
 
-pyautogui.click(x_campo, y)
-time.sleep(1)
+            #PROCESSO DE FILTRO RA
+            #Abrindo o Filtro - Aluno RA
+            time.sleep(0.5)
+            # ENTRANDO EM CURSOS/HABILITAÇÃO
 
-senha = "123456789"
-pyautogui.typewrite(senha)
+            # Anexo
+            time.sleep(0.5)
+            coord_anexo_filtro = ler_imagem(r"location/05.Curso/anexo_curso.png")
+            personalizar_clique(coord_anexo_filtro,x_deslocamento = 40)
 
-#Confirmar senha
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/03.Login_TOTVS/confirmar_senha.png", grayscale = True, confidence = 0.8)
-
-pyautogui.click(pyautogui.click(pyautogui.center(encontrou)))
-
-
-#PESQUISANDO ALUNO
-#Selecionando filtro
-
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/04.Procurar_aluno/Alunos_icone.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-
-pyautogui.moveTo(x,y)
-pyautogui.click()
-
-#Escolhendo o modo de filtro RA
-
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/04.Procurar_aluno/RA_pesquisa_aluno.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-
-pyautogui.moveTo(x,y)
-pyautogui.click()
-
-#Confirmação - EXECUTAR
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/04.Procurar_aluno/executar.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-
-pyautogui.moveTo(x,y)
-pyautogui.click()
+            #Entrando em cursos habilitação
+            time.sleep(0.5)
+            coord_curso_habilitacao = ler_imagem(r"location/05.Curso/curso_habilitacao.png")
+            clicar_imagem(coord_curso_habilitacao,1)
 
 
-#Encontrando o campo de escrita e colocando o RA da vez
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/04.Procurar_aluno/campo_pesquisa_RA.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
+            # TRATAMENTO DA CRITICA
 
-pyautogui.moveTo(x,y )
-pyautogui.click()
-pyautogui.write("00648470")
+            #Selecionando Administração
+            time.sleep(0.5)
+            coord_curso = ler_imagem(r"location/06.Aba_de_ajuste_curso/curso_padrao.png")
+            clicar_imagem(coord_curso,2)
 
+            # Campo Complementar - Produção DN
+            time.sleep(0.5)
+            coord_seta_campo_dm = ler_imagem(r"location/06.Aba_de_ajuste_curso/seta_para_campo_complemento.png")
+            personalizar_clique(coord_seta_campo_dm, x_deslocamento=25, quantidade=4)
 
-#Confirmação - OK
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/04.Procurar_aluno/OK.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-
-pyautogui.moveTo(x,y)
-pyautogui.click()
-
-# CURSO ALUNO
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/05.Curso/selecionando_aluno.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-
-x_campo = x + 30
-y_campo = y + 30
-pyautogui.moveTo(x_campo,y_campo)
-pyautogui.click()
-
-#Selecionando anexo
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/05.Curso/anexo_curso.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-
-x_campo = x + 40
-
-pyautogui.moveTo(x_campo,y)
-pyautogui.click()
-
-#Selecionando o curso
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/05.Curso/curso_habilitacao.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-pyautogui.moveTo(x,y)
-pyautogui.click()
-
-#CURSO
-
-# Selecionando curso - ADMINISTRAÇÃO
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/06.Aba_de_ajuste_curso/curso_padrao.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-pyautogui.moveTo(x,y)
-pyautogui.doubleClick()
-
-# Indo para aba de "Campos complementares - produção DN"
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/06.Aba_de_ajuste_curso/seta_para_campo_complemento.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-
-x_campo = x + 25
-pyautogui.moveTo(x_campo,y)
-pyautogui.doubleClick()
-pyautogui.doubleClick()
-
-#Entrando na Aba de Produção DN
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/06.Aba_de_ajuste_curso/aba_de_ajuste.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-pyautogui.moveTo(x,y)
-pyautogui.click()
-
-# AJUSTE DO CURSO
-
-#Ajustando Parceria
-time.sleep(1)
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/07_ajuste_cursos/aba_parceria.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-
-y_campo = y + 20
-pyautogui.moveTo(x,y_campo)
-pyautogui.click()
-
-#Verificando se o campo está vazio:
-pyperclip.copy("") #limpando campo de copia
-pyautogui.hotkey("ctrl","a")
-pyautogui.hotkey("ctrl","c")
-conteudo = pyperclip.paste().strip()
+            # Produção DN
+            time.sleep(0.5)
+            coord_producao_dn = ler_imagem(r"location/06.Aba_de_ajuste_curso/aba_de_ajuste.png")
+            clicar_imagem(coord_producao_dn, quantidade=4)
 
 
-if  conteudo == "":
-    pyautogui.write("0")
+            ## AJUSTANDO O CURSO
 
-pyautogui.press(["tab","tab","tab"])
+            # Campo Parceria
+            time.sleep(1)
+            coord_campo_parceria= ler_imagem(r"location/07.ajuste_cursos/aba_parceria.png")
+            personalizar_clique(coord_campo_parceria,y_deslocamento=20)
+            conteudo = copiar_conteudo()
+            preencher_campo_parceria(conteudo)
+            passar_campos(quantidade= 3)
+
+            # Campo Estado
+            time.sleep(1)
+            preencher_campo_estado()
+            passar_campos(quantidade= 4)
+
+            #Campo instituição
+            time.sleep(1)
+            preencher_campo_instituicao()
+            passar_campos(quantidade= 1)
+
+            #Finalizando correção
+            time.sleep(1)
+            coord_finalizando_correcao = ler_imagem(r"location/07.ajuste_cursos/OK.png")
+            clicar_imagem(coord_finalizando_correcao)
+            primeiro_ra = False
+
+            time.sleep(3)
+        else:
+            #Selecionar o filtro de pesquisa
+            coord_filtro_RA = ler_imagem(r"location/08.segundo_loop/filtro_RA_direto.png")
+            clicar_imagem(coord_filtro_RA,1)
+
+            #Clicar no campo de texto do filtro
+            coord_campo_pesquisa = ler_imagem(r"location/08.segundo_loop/pesquisa_RA.png")
+            personalizar_clique(coord_campo_pesquisa,y_deslocamento=20,quantidade=2)
+
+            #Apagar RA antigo
+            apagar_texto()
+
+            #Digitar o RA
+            digitar(RA)
+            
+            #Confirmar pesquisa
+            coord_confirmar_filtro = ler_imagem(r"location/08.segundo_loop/OK.png")
+            clicar_imagem(coord_confirmar_filtro,1)
+            time.sleep(2)
+
+            # TRATAMENTO DA CRITICA
+            #Selecionando Administração
+            time.sleep(0.5)
+            coord_curso = ler_imagem(r"location/06.Aba_de_ajuste_curso/curso_padrao.png")
+            clicar_imagem(coord_curso,2)
+
+            # Campo Complementar - Produção DN
+            time.sleep(0.5)
+            coord_seta_campo_dm = ler_imagem(r"location/06.Aba_de_ajuste_curso/seta_para_campo_complemento.png")
+            personalizar_clique(coord_seta_campo_dm, x_deslocamento=25, quantidade=4)
+
+            # Produção DN
+            time.sleep(0.5)
+            coord_producao_dn = ler_imagem(r"location/06.Aba_de_ajuste_curso/aba_de_ajuste.png")
+            clicar_imagem(coord_producao_dn, quantidade=4)
 
 
-#Campo estado:
-pyperclip.copy("") #limpando campo de copia
-pyautogui.hotkey("ctrl","a")
-pyautogui.hotkey("ctrl","c")
-conteudo = pyperclip.paste().strip()
-time.sleep(1)
+            # AJUSTANDO O CURSO
 
-if  conteudo in ["","0"]:
-    pyautogui.write("MT")
+            # Campo Parceria
+            time.sleep(0.5)
+            coord_campo_parceria= ler_imagem(r"location/07.ajuste_cursos/aba_parceria.png")
+            personalizar_clique(coord_campo_parceria,y_deslocamento=20)
+            conteudo = copiar_conteudo()
+            preencher_campo_parceria(conteudo)
+            passar_campos(quantidade= 3)
 
-time.sleep(0.3)
-pyautogui.press(["tab","tab","tab","tab"])
+            # Campo Estado
+            time.sleep(0.5)
+            preencher_campo_estado()
+            passar_campos(quantidade= 4)
 
-#Campo Instituição:
+            #Campo instituição
+            time.sleep(0.5)
+            preencher_campo_instituicao()
+            passar_campos(quantidade= 1)
 
-pyautogui.write("SEDUC")
-pyautogui.press("tab")
-
-#Salvando os dados atualizado do curso
-encontrou = None
-while encontrou is None:
-    encontrou = pyautogui.locateOnScreen(r"location/07_ajuste_cursos/OK.png", grayscale = True, confidence = 0.8)
-x, y = pyautogui.center(encontrou)
-pyautogui.moveTo(x,y)
-pyautogui.click()
+            #Finalizando correção
+            time.sleep(0.5)
+            coord_finalizando_correcao = ler_imagem(r"location/07.ajuste_cursos/OK.png")
+            clicar_imagem(coord_finalizando_correcao,1)
+            status = True
+            time.sleep(3)
+    primeira_filial = False
