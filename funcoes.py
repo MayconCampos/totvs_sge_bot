@@ -19,35 +19,37 @@ class ImagemNaoEncontradaError(Exception):
     pass
 
 
-def ler_imagem(imagem, tempo_limite=15):
+def ler_imagem(*imagens, tempo_limite=15):
 
-    if not os.path.exists(imagem):
-        mensagem = f"Arquivo de imagem inexistente: {imagem}"
+    for imagem in imagens:
+        if not os.path.exists(imagem):
+            mensagem = f"Arquivo de imagem inexistente: {imagem}"
 
-        logging.error(mensagem)
+            logging.error(mensagem)
 
-        raise FileNotFoundError(mensagem)
+            raise FileNotFoundError(mensagem)
 
-    logging.info(f"Procurando imagem: {imagem}")
+    logging.info(f"Procurando imagem(s): {imagens}")
 
     tempo_inicial = time.time()
-    coordenada = None
 
-    while coordenada is None:
+    while True:
 
-        coordenada = pyautogui.locateOnScreen(
-            imagem,
-            grayscale=True,
-            confidence=0.8
-        )
+        for imagem in imagens:
 
-        if coordenada is not None:
-            logging.info(
-                f"Imagem encontrada: {imagem} | "
-                f"Coordenada: {coordenada}"
+            coordenada = pyautogui.locateOnScreen(
+                imagem,
+                grayscale=True,
+                confidence=0.95
             )
 
-            return coordenada
+            if coordenada is not None:
+                logging.info(
+                    f"Imagem encontrada: {imagem} | "
+                    f"Coordenada: {coordenada}"
+                )
+
+                return coordenada
 
         tempo_decorrido = time.time() - tempo_inicial
 
@@ -65,8 +67,8 @@ def ler_imagem(imagem, tempo_limite=15):
             pyautogui.screenshot(nome_print)
 
             mensagem = (
-                f"Imagem não encontrada após "
-                f"{tempo_limite} segundos: {imagem}. "
+                f"Nenhuma das imagens foi encontrada após "
+                f"{tempo_limite} segundos: {imagens}. "
                 f"Print salvo em: {nome_print}"
             )
 
@@ -123,6 +125,10 @@ def copiar_conteudo():
     conteudo = pyperclip.paste().strip()
 
     return conteudo
+
+def preencher_campo_tem_parceria(conteudo):
+    if conteudo == "1" or conteudo =="0":
+            pyautogui.write("1")
 
 def preencher_campo_parceria(conteudo):
     if conteudo == "" or conteudo =="0":

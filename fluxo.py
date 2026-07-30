@@ -76,7 +76,10 @@ def anexo_do_RA():
 
 def filtrando_curso():
     time.sleep(0.5)
-    coord_curso = ler_imagem(r"location/06.Aba_de_ajuste_curso/curso_padrao.png")
+    coord_curso = ler_imagem(
+        r"location/06.Aba_de_ajuste_curso/curso_padrao.png",
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_logistica.png"
+        )
     clicar_imagem(coord_curso,2)
 
     # Campo Complementar - Produção DN
@@ -90,6 +93,15 @@ def filtrando_curso():
     clicar_imagem(coord_producao_dn, quantidade=4)
 
 def ajuste_campo_complementar():
+    #Tem parceria?
+    time.sleep(0.5)
+    coord_campo_parceria= ler_imagem(r"location/07.ajuste_cursos/aba_tem_parceria.png")
+    personalizar_clique(coord_campo_parceria,y_deslocamento=20)
+    conteudo = copiar_conteudo()
+    preencher_campo_tem_parceria(conteudo)
+    passar_campos(1)
+    pyautogui.press("enter")
+
     # Campo Parceiria
     time.sleep(0.5)
     coord_campo_parceria= ler_imagem(r"location/07.ajuste_cursos/aba_parceria.png")
