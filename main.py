@@ -1,6 +1,6 @@
 from fluxo import *
 
-df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\teste_30_07_2026.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
+df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\teste_30_07_2026_c11000h.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
 cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
 
 tempo_inicial = time.time()
