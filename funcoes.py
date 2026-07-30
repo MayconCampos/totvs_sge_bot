@@ -9,14 +9,72 @@ PASTA_PROJETO = Path(__file__).resolve().parent
 pyautogui.FAILSAFE = True
 pyautogui.useImageNotFoundException(False)
 
-def ler_imagem(imagem):
+import logging
+import os
+import time
+import pyautogui
+
+
+class ImagemNaoEncontradaError(Exception):
+    pass
+
+
+def ler_imagem(imagem, tempo_limite=15):
+
+    if not os.path.exists(imagem):
+        mensagem = f"Arquivo de imagem inexistente: {imagem}"
+
+        logging.error(mensagem)
+
+        raise FileNotFoundError(mensagem)
+
+    logging.info(f"Procurando imagem: {imagem}")
+
+    tempo_inicial = time.time()
     coordenada = None
+
     while coordenada is None:
+
         coordenada = pyautogui.locateOnScreen(
-            imagem, 
-            grayscale = True, 
-            confidence = 0.8)
-    return coordenada
+            imagem,
+            grayscale=True,
+            confidence=0.8
+        )
+
+        if coordenada is not None:
+            logging.info(
+                f"Imagem encontrada: {imagem} | "
+                f"Coordenada: {coordenada}"
+            )
+
+            return coordenada
+
+        tempo_decorrido = time.time() - tempo_inicial
+
+        if tempo_decorrido >= tempo_limite:
+
+            os.makedirs(
+                "logs/prints",
+                exist_ok=True
+            )
+
+            nome_print = (
+                f"logs/prints/erro_{int(time.time())}.png"
+            )
+
+            pyautogui.screenshot(nome_print)
+
+            mensagem = (
+                f"Imagem não encontrada após "
+                f"{tempo_limite} segundos: {imagem}. "
+                f"Print salvo em: {nome_print}"
+            )
+
+            logging.error(mensagem)
+
+            raise ImagemNaoEncontradaError(mensagem)
+
+        time.sleep(0.2)
 
 
 def clicar_imagem(coordenada,quantidade = 1):
