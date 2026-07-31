@@ -78,7 +78,9 @@ def filtrando_curso():
     time.sleep(0.5)
     coord_curso = ler_imagem(
         r"location/06.Aba_de_ajuste_curso/curso_padrao.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_logistica.png"
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_logistica.png",
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_informatica.png",
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_segunraca_trabalho.png"
         )
     clicar_imagem(coord_curso,2)
 
