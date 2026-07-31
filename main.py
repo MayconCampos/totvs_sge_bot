@@ -1,6 +1,6 @@
 from fluxo import *
 
-df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\teste_30_07_2026_c12000h.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
+df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\teste_30_07_2026_c21200h.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
 cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
 
 tempo_inicial = time.time()
@@ -24,7 +24,7 @@ for filial in cod_filial_unique:
             else:
                 trocar_filial(filial)
 
-            time.sleep(0.5)
+            time.sleep(1)
             filtro_aluno(RA)
             anexo_do_RA()
 
@@ -36,6 +36,7 @@ for filial in cod_filial_unique:
             primeiro_ra = False
 
         else:
+            time.sleep(1)
             trocando_RA(RA)
 
             time.sleep(0.5)

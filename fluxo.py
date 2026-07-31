@@ -80,7 +80,12 @@ def filtrando_curso():
         r"location/06.Aba_de_ajuste_curso/curso_padrao.png",
         r"location/06.Aba_de_ajuste_curso/curso_padrao_logistica.png",
         r"location/06.Aba_de_ajuste_curso/curso_padrao_informatica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_segunraca_trabalho.png"
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_segunraca_trabalho.png",
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_automacao_industrial.png",
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_edificacao.png",
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_eletrotecnica.png",
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_mecanica.png",
+        r"location/06.Aba_de_ajuste_curso/curso_padrao_mecatronica.png",
         )
     clicar_imagem(coord_curso,2)
 
