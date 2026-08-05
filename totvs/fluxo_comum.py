@@ -2,41 +2,36 @@ import time
 
 import pyautogui
 
-from funcoes import (
+from core.funcoes import (
     apagar_texto,
     clicar_imagem,
-    copiar_conteudo,
     digitar,
     ler_imagem,
-    passar_campos,
     personalizar_clique,
-    preencher_campo_estado,
-    preencher_campo_instituicao,
-    preencher_campo_parceria,
-    preencher_campo_tem_parceria,
 )
+
 
 def trocar_filial(filial):
     coord_troca_unidade = ler_imagem(r"location/09.Troca_Unidade/troca_de_unidade.png")
     personalizar_clique(coord_troca_unidade,x_deslocamento = 15, quantidade=1)
     time.sleep(0.5)
-    
+
     pyautogui.hotkey("alt", "tab")
     pyautogui.hotkey("alt", "tab")
     #acaba não usando o botão YES e confirma a troca no "enter"
     #coord_confirmar_fechamento = ler_imagem(r"location/09.Troca_Unidade/YES.png")
     pyautogui.press("enter")
-    
+
     #Filtrando Unidade através do codigo unidade
     coord_filtro_unidade = ler_imagem(r"location/09.Troca_Unidade/campo_filial.png")
     personalizar_clique(coord_filtro_unidade, y_deslocamento=15, quantidade=1)
     apagar_texto()
     digitar(filial)
     time.sleep(0.5)
-    
+
     #Confirmando filial
     coord_concluir = ler_imagem(r"location/09.Troca_Unidade/CONCLUIR.png")
-    clicar_imagem(coord_concluir) 
+    clicar_imagem(coord_concluir)
 
 def primeira_filial(filial):
     coord_troca_unidade = ler_imagem(r"location/09.Troca_Unidade/troca_de_unidade.png")
@@ -80,7 +75,7 @@ def filtro_aluno(RA):
     clicar_imagem(coord_confirma_pesquisa,1)
 
 def anexo_do_RA():
-    # Entrando em curso/habilitção  
+    # Entrando em curso/habilitção
     time.sleep(0.5)
     coord_anexo_filtro = ler_imagem(r"location/05.Curso/anexo_curso.png")
     personalizar_clique(coord_anexo_filtro,x_deslocamento = 40)
@@ -89,64 +84,6 @@ def anexo_do_RA():
     time.sleep(0.5)
     coord_curso_habilitacao = ler_imagem(r"location/05.Curso/curso_habilitacao.png")
     clicar_imagem(coord_curso_habilitacao,1)
-
-def filtrando_curso():
-    time.sleep(0.5)
-    coord_curso = ler_imagem(
-        r"location/06.Aba_de_ajuste_curso/curso_padrao.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_logistica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_informatica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_segunraca_trabalho.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_automacao_industrial.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_edificacao.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_eletrotecnica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_mecanica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_mecatronica.png",
-        )
-    clicar_imagem(coord_curso,2)
-
-    # Campo Complementar - Produção DN
-    time.sleep(0.5)
-    coord_seta_campo_dm = ler_imagem(r"location/06.Aba_de_ajuste_curso/seta_para_campo_complemento.png")
-    personalizar_clique(coord_seta_campo_dm, x_deslocamento=25, quantidade=4)
-
-    # Produção DN
-    time.sleep(0.5)
-    coord_producao_dn = ler_imagem(r"location/06.Aba_de_ajuste_curso/aba_de_ajuste.png")
-    clicar_imagem(coord_producao_dn, quantidade=4)
-
-def ajuste_campo_complementar():
-    #Tem parceria?
-    time.sleep(0.5)
-    coord_campo_parceria= ler_imagem(r"location/07.ajuste_cursos/aba_tem_parceria.png")
-    personalizar_clique(coord_campo_parceria,y_deslocamento=20)
-    conteudo = copiar_conteudo()
-    preencher_campo_tem_parceria(conteudo)
-    passar_campos(1)
-    pyautogui.press("enter")
-
-    # Campo Parceiria
-    time.sleep(0.5)
-    coord_campo_parceria= ler_imagem(r"location/07.ajuste_cursos/aba_parceria.png")
-    personalizar_clique(coord_campo_parceria,y_deslocamento=20)
-    conteudo = copiar_conteudo()
-    preencher_campo_parceria(conteudo)
-    passar_campos(quantidade= 3)
-
-    # Campo Estado
-    time.sleep(1)
-    preencher_campo_estado()
-    passar_campos(quantidade= 4)
-
-    #Campo instituição
-    time.sleep(0.5)
-    preencher_campo_instituicao()
-    passar_campos(quantidade= 1)
-
-    #Finalizando correção
-    time.sleep(0.5)
-    coord_finalizando_correcao = ler_imagem(r"location/07.ajuste_cursos/OK.png")
-    clicar_imagem(coord_finalizando_correcao)
 
 def trocando_RA(RA):
     #Selecionar o filtro de pesquisa
