@@ -1,4 +1,20 @@
-from funcoes import *
+import time
+
+import pyautogui
+
+from funcoes import (
+    apagar_texto,
+    clicar_imagem,
+    copiar_conteudo,
+    digitar,
+    ler_imagem,
+    passar_campos,
+    personalizar_clique,
+    preencher_campo_estado,
+    preencher_campo_instituicao,
+    preencher_campo_parceria,
+    preencher_campo_tem_parceria,
+)
 
 def trocar_filial(filial):
     coord_troca_unidade = ler_imagem(r"location/09.Troca_Unidade/troca_de_unidade.png")

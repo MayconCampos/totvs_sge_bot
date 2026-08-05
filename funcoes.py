@@ -1,18 +1,13 @@
-import pyautogui
-import os
-import time
-import pyperclip
-import pandas as pd
-from pathlib import Path
-
-PASTA_PROJETO = Path(__file__).resolve().parent
-pyautogui.FAILSAFE = True
-pyautogui.useImageNotFoundException(False)
-
 import logging
 import os
 import time
+
 import pyautogui
+import pyperclip
+
+
+pyautogui.FAILSAFE = True
+pyautogui.useImageNotFoundException(False)
 
 
 class ImagemNaoEncontradaError(Exception):
