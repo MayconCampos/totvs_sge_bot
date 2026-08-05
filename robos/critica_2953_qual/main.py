@@ -16,8 +16,8 @@ from totvs.fluxo_comum import (
 
 
 def executar_2953_qual():
-    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\teste.xlsx", dtype={"RA": str, "CodFilialSGE": str})
-    cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
+    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\023___matricula_qualificacao_com_parceria_2026-08-05T15_01_30.6619173-04_00.xlsx", dtype={"RA": str, "CODFILIAL": str})
+    cod_filial_unique = df_base_ra["CODFILIAL"].drop_duplicates().tolist()
 
     tempo_inicial = time.time()
     eh_primeira_filial = True
@@ -25,11 +25,11 @@ def executar_2953_qual():
     total = len(df_base_ra)
 
     for filial in cod_filial_unique:
-        df_filtrada = df_base_ra[df_base_ra["CodFilialSGE"] == filial]
+        df_filtrada = df_base_ra[df_base_ra["CODFILIAL"] == filial]
         #Status zero é o primeiro laço do loop
         primeiro_ra = True
 
-        for RA in df_filtrada["RegistroAluno"]:
+        for RA in df_filtrada["RA"]:
             count += 1
             print(f"Processando {count}/{total} | Filial: {filial} | RA: {RA}")
 

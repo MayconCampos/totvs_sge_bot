@@ -17,15 +17,27 @@ from robos.critica_2953_qual.regras import (
 def filtrando_curso():
     time.sleep(0.5)
     coord_curso = ler_imagem(
-        r"location/06.Aba_de_ajuste_curso/2953_qual/ASSISTENTE ADMINISTRATIVO COM INFORMÁTICA.png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/ASSISTENTE CONTÁBIL FINANCEIRO.png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/ASSISTENTE DE CONTROLE DA QUALIDADE.png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/ASSISTENTE DE RECURSOS HUMANOS COM INFORMÁTICA.png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/ASSISTENTE DE RECURSOS HUMANOS.png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/ELETRICISTA DE INSTALAÇÕES PREDIAIS .png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/ELETRICISTA INDUSTRIAL.png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/OPERADOR DE COMPUTADOR.png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/OPERADOR DE EMPILHADEIRA.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assentador_de_revestimentos_ceramicos.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_administrativo.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_administrativo_com_informatica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_contabil_financeiro.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_de_controle_da_qualidade.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_de_controle_de_qualidade_com_informatica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_de_logistica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_de_recursos_humanos.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_de_recursos_humanos_com_informatica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/construtor_de_alvenaria.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/cozinheiro_industrial.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/eletricista_de_instalacoes_prediais.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/eletricista_industrial.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/instalador_hidraulico.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/mecanico_de_manutencao_de_maquinas_agricolas.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/montador_e_reparador_de_computadores.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/operador_de_computador.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/operador_de_empilhadeira.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/operador_de_retroescavadeira.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/pintor_de_obras_imobiliarias.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/torneiro_mecanico.png",
         )
     clicar_imagem(coord_curso,2)
 
