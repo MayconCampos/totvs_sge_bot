@@ -20,15 +20,15 @@ from robos.critica_2953_tec.regras import (
 def filtrando_curso():
     time.sleep(0.5)
     coord_curso = ler_imagem(
-        r"location/06.Aba_de_ajuste_curso/curso_padrao.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_logistica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_informatica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_segunraca_trabalho.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_automacao_industrial.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_edificacao.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_eletrotecnica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_mecanica.png",
-        r"location/06.Aba_de_ajuste_curso/curso_padrao_mecatronica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao_logistica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao_informatica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao_segunraca_trabalho.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao_automacao_industrial.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao_edificacao.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao_eletrotecnica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao_mecanica.png",
+        r"location/06.Aba_de_ajuste_curso/2953_tec/curso_padrao_mecatronica.png",
         )
     clicar_imagem(coord_curso,2)
 
