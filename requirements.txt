@@ -1,0 +1,5 @@
+pandas
+openpyxl
+pyautogui
+pyperclip
+opencv-python
