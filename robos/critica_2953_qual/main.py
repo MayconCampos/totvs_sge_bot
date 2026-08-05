@@ -1,4 +1,11 @@
-from robos.critica_2953_qual.fluxo import executar_ajuste
+import time
+
+import pandas as pd
+
+from robos.critica_2953_qual.fluxo import (
+    ajuste_campo_complementar,
+    filtrando_curso,
+)
 from totvs.fluxo_comum import (
     anexo_do_RA,
     filtro_aluno,
@@ -8,37 +15,60 @@ from totvs.fluxo_comum import (
 )
 
 
-def processar_filiais(filiais_e_ras):
-    """Processa pares de filial e respectivos RAs usando a navegação comum."""
-    eh_primeira_filial = True
+def executar_2953_qual():
+    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\teste.xlsx", dtype={"RA": str, "CodFilialSGE": str})
+    cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
 
-    for filial, registros_aluno in filiais_e_ras:
+    tempo_inicial = time.time()
+    eh_primeira_filial = True
+    count = 0
+    total = len(df_base_ra)
+
+    for filial in cod_filial_unique:
+        df_filtrada = df_base_ra[df_base_ra["CodFilialSGE"] == filial]
+        #Status zero é o primeiro laço do loop
         primeiro_ra = True
 
-        for ra in registros_aluno:
+        for RA in df_filtrada["RegistroAluno"]:
+            count += 1
+            print(f"Processando {count}/{total} | Filial: {filial} | RA: {RA}")
+
             if primeiro_ra:
+
                 if eh_primeira_filial:
                     primeira_filial(filial)
                 else:
                     trocar_filial(filial)
 
-                filtro_aluno(ra)
+                time.sleep(1)
+                filtro_aluno(RA)
                 anexo_do_RA()
-                primeiro_ra = False
-            else:
-                trocando_RA(ra)
 
-            executar_ajuste()
+                time.sleep(0.5)
+                filtrando_curso()
+
+                time.sleep(0.5)
+                ajuste_campo_complementar()
+                primeiro_ra = False
+
+            else:
+                time.sleep(1)
+                trocando_RA(RA)
+
+                time.sleep(0.5)
+                filtrando_curso()
+
+                time.sleep(0.5)
+                ajuste_campo_complementar()
 
         eh_primeira_filial = False
 
+    tempo_decorrido = time.time() - tempo_inicial
+    minutos = int(tempo_decorrido //60)
+    segundos = tempo_decorrido % 60
 
-def executar():
-    raise NotImplementedError(
-        "Defina a fonte de filiais e RAs da crítica 2953 qualitativa e "
-        "chame processar_filiais()."
-    )
+    print(f"Tempo total: {minutos} min {segundos:.2f} s")
 
 
 if __name__ == "__main__":
-    executar()
+    executar_2953_qual()

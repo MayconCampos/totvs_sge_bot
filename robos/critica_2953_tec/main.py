@@ -15,7 +15,7 @@ from totvs.fluxo_comum import (
 )
 
 
-def executar():
+def executar_2953_tec():
     df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\teste.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
     cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
 
@@ -71,4 +71,4 @@ def executar():
 
 
 if __name__ == "__main__":
-    executar()
+    executar_2953_tec()
