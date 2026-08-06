@@ -18,7 +18,7 @@ RAs_curso_problematico = []
 
 
 def verificacao_imagem(RA):
-    time.sleep(0.5)
+    time.sleep(3)
 
     coord_erro = pyautogui.locateOnScreen(
         r"location/06.Aba_de_ajuste_curso/exception/exception_2953_qual/Erro.png",
@@ -44,7 +44,6 @@ def verificacao_imagem(RA):
 
 
 def filtrando_curso(RA):
-    time.sleep(0.5)
     coord_curso = ler_imagem(
         r"location/06.Aba_de_ajuste_curso/2953_qual/assentador_de_revestimentos_ceramicos.png",
         r"location/06.Aba_de_ajuste_curso/2953_qual/assistente_administrativo.png",
@@ -71,6 +70,7 @@ def filtrando_curso(RA):
         )
     clicar_imagem(coord_curso,2)
 
+    time.sleep(1.5)
     curso_problematico = verificacao_imagem(RA)
 
     if curso_problematico:

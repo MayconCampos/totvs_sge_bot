@@ -45,7 +45,7 @@ def executar_2953_qual():
                 filtro_aluno(RA)
                 anexo_do_RA()
 
-                time.sleep(0.5)
+                time.sleep(1)
                 curso_problematico = filtrando_curso(RA)
 
                 if not curso_problematico:
