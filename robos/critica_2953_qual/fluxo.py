@@ -67,7 +67,7 @@ def filtrando_curso(RA):
         r"location/06.Aba_de_ajuste_curso/2953_qual/operador_de_retroescavadeira.png",
         r"location/06.Aba_de_ajuste_curso/2953_qual/pintor_de_obras_imobiliarias.png",
         r"location/06.Aba_de_ajuste_curso/2953_qual/torneiro_mecanico.png",
-        r"location/06.Aba_de_ajuste_curso/2953_qual/operdor_motoniveladora.png",
+        r"location/06.Aba_de_ajuste_curso/2953_qual/operador_motoniveladora.png",
         )
     clicar_imagem(coord_curso,2)
 
