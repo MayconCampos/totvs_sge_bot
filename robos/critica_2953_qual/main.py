@@ -3,6 +3,7 @@ import time
 import pandas as pd
 
 from robos.critica_2953_qual.fluxo import (
+    RAs_curso_problematico,
     ajuste_campo_complementar,
     filtrando_curso,
 )
@@ -45,10 +46,12 @@ def executar_2953_qual():
                 anexo_do_RA()
 
                 time.sleep(0.5)
-                filtrando_curso()
+                curso_problematico = filtrando_curso(RA)
 
-                time.sleep(0.5)
-                ajuste_campo_complementar()
+                if not curso_problematico:
+                    time.sleep(0.5)
+                    ajuste_campo_complementar()
+
                 primeiro_ra = False
 
             else:
@@ -56,10 +59,11 @@ def executar_2953_qual():
                 trocando_RA(RA)
 
                 time.sleep(0.5)
-                filtrando_curso()
+                curso_problematico = filtrando_curso(RA)
 
-                time.sleep(0.5)
-                ajuste_campo_complementar()
+                if not curso_problematico:
+                    time.sleep(0.5)
+                    ajuste_campo_complementar()
 
         eh_primeira_filial = False
 
@@ -68,6 +72,7 @@ def executar_2953_qual():
     segundos = tempo_decorrido % 60
 
     print(f"Tempo total: {minutos} min {segundos:.2f} s")
+    print(f"RAs com curso problemático: {RAs_curso_problematico}")
 
 
 if __name__ == "__main__":

@@ -14,7 +14,36 @@ from robos.critica_2953_qual.regras import (
 )
 
 
-def filtrando_curso():
+RAs_curso_problematico = []
+
+
+def verificacao_imagem(RA):
+    time.sleep(0.5)
+
+    coord_erro = pyautogui.locateOnScreen(
+        r"location/06.Aba_de_ajuste_curso/exception/exception_2953_qual/Erro.png",
+        grayscale=True,
+        confidence=0.95,
+    )
+
+    if coord_erro is None:
+        return False
+
+    coord_erro = ler_imagem(
+        r"location/06.Aba_de_ajuste_curso/exception/exception_2953_qual/OK_inicial.png",
+    )
+    clicar_imagem(coord_erro)
+
+    coord_sair_curso = ler_imagem(
+        r"location/06.Aba_de_ajuste_curso/exception/exception_2953_qual/Cancelar.png"
+    )
+    clicar_imagem(coord_sair_curso)
+
+    RAs_curso_problematico.append(RA)
+    return True
+
+
+def filtrando_curso(RA):
     time.sleep(0.5)
     coord_curso = ler_imagem(
         r"location/06.Aba_de_ajuste_curso/2953_qual/assentador_de_revestimentos_ceramicos.png",
@@ -41,6 +70,11 @@ def filtrando_curso():
         )
     clicar_imagem(coord_curso,2)
 
+    curso_problematico = verificacao_imagem(RA)
+
+    if curso_problematico:
+        return True
+
     # Campo Complementar - Produção DN
     time.sleep(0.5)
     coord_seta_campo_dm = ler_imagem(r"location/06.Aba_de_ajuste_curso/seta_para_campo_complemento.png")
@@ -50,6 +84,8 @@ def filtrando_curso():
     time.sleep(0.5)
     coord_producao_dn = ler_imagem(r"location/06.Aba_de_ajuste_curso/aba_de_ajuste.png")
     clicar_imagem(coord_producao_dn, quantidade=4)
+
+    return False
 
 def ajuste_campo_complementar():
     #Tem parceria?
