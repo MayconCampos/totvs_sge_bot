@@ -17,7 +17,7 @@ from totvs.fluxo_comum import (
 
 
 def executar_2953_qual():
-    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\023___matricula_qualificacao_com_parceria_2026-08-05T15_01_30.6619173-04_00.xlsx", dtype={"RA": str, "CODFILIAL": str})
+    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Ultima_base_critica_2953_qual.xlsx", dtype={"RA": str, "CODFILIAL": str})
     cod_filial_unique = df_base_ra["CODFILIAL"].drop_duplicates().tolist()
 
     tempo_inicial = time.time()
