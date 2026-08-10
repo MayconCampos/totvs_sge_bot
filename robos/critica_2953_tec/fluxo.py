@@ -15,7 +15,43 @@ from robos.critica_2953_tec.regras import (
     preencher_campo_parceria,
     preencher_campo_tem_parceria,
 )
+RAs_curso_problematico = []
+def verificacao_imagem(RA):
+    """
+    Verifica se ocorreu erro ao abrir o curso selecionado.
 
+    Ao identificar a mensagem de erro, confirma o aviso, fecha a tela
+    do curso e registra o RA na lista de cursos problemáticos.
+
+    Parâmetros:
+        RA: Registro Acadêmico do aluno em processamento.
+
+    Retorno:
+        True se o curso apresentou erro; False se não houve erro.
+    """
+    time.sleep(3)
+
+    coord_erro = pyautogui.locateOnScreen(
+        r"location/06.Aba_de_ajuste_curso/exception/Erro.png",
+        grayscale=True,
+        confidence=0.95,
+    )
+
+    if coord_erro is None:
+        return False
+
+    coord_erro = ler_imagem(
+        r"location/06.Aba_de_ajuste_curso/exception/OK_inicial.png",
+    )
+    clicar_imagem(coord_erro)
+
+    coord_sair_curso = ler_imagem(
+        r"location/06.Aba_de_ajuste_curso/exception/Cancelar.png"
+    )
+    clicar_imagem(coord_sair_curso)
+
+    RAs_curso_problematico.append(RA)
+    return True
 
 def filtrando_curso():
     time.sleep(0.5)

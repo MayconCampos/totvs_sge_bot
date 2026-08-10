@@ -15,8 +15,14 @@ from totvs.fluxo_comum import (
     trocando_RA,
 )
 
-
 def executar_2953_qual():
+    """
+    Executa a crítica 2953 de qualificação para todos os registros da base.
+
+    Lê a planilha de RAs, organiza o processamento por filial, abre cada
+    RA no TOTVS e trata exclusivamente o curso indicado em CaminhoImg.
+    Ao final, exibe o tempo de execução e os RAs com cursos problemáticos.
+    """
     df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Ultima_base_critica_2953_qual.xlsx", dtype={"RA": str, "CODFILIAL": str, "CaminhoImg": str})
     cod_filial_unique = df_base_ra["CODFILIAL"].drop_duplicates().tolist()
 
@@ -27,21 +33,17 @@ def executar_2953_qual():
 
     for filial in cod_filial_unique:
         df_filtrada = df_base_ra[df_base_ra["CODFILIAL"] == filial]
-        #Status zero é o primeiro laço do loop
-        primeiro_ra = True
-
+        primeiro_ra = True #Status zero é o primeiro laço do loop
         for RA, CaminhoImg in df_filtrada[["RA","CaminhoImg"]].itertuples(index=False, name=None):
             CaminhoImg = CaminhoImg.replace("\t","").strip()
             count += 1
             print(f"Processando {count}/{total} | Filial: {filial} | RA: {RA}")
 
             if primeiro_ra:
-
                 if eh_primeira_filial:
                     primeira_filial(filial)
                 else:
                     trocar_filial(filial)
-
                 time.sleep(1)
                 filtro_aluno(RA)
                 anexo_do_RA()
@@ -54,7 +56,6 @@ def executar_2953_qual():
                     ajuste_campo_complementar()
 
                 primeiro_ra = False
-
             else:
                 time.sleep(1)
                 trocando_RA(RA)
@@ -74,7 +75,6 @@ def executar_2953_qual():
 
     print(f"Tempo total: {minutos} min {segundos:.2f} s")
     print(f"RAs com curso problemático: {RAs_curso_problematico}")
-
 
 if __name__ == "__main__":
     executar_2953_qual()
