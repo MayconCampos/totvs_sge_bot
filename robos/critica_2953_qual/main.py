@@ -31,6 +31,7 @@ def executar_2953_qual():
         primeiro_ra = True
 
         for RA, CaminhoImg in df_filtrada[["RA","CaminhoImg"]].itertuples(index=False, name=None):
+            CaminhoImg = CaminhoImg.replace("\t","").strip()
             count += 1
             print(f"Processando {count}/{total} | Filial: {filial} | RA: {RA}")
 
