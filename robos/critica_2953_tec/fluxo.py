@@ -63,9 +63,9 @@ def filtrando_curso(RA,CaminhoImg):
     Retorno:
         True se o curso apresentou problema; False se está pronto para ajuste.
     """
+    time.sleep(3)
     curso_especifco = ler_imagem(CaminhoImg)
     clicar_imagem(curso_especifco,2)
-    time.sleep(1.5)
     curso_problematico = verificacao_imagem(RA)
     if curso_problematico:
         return True

@@ -46,7 +46,7 @@ def executar_2953_tec():
                 filtro_aluno(RA)
                 anexo_do_RA()
 
-                time.sleep(0.5)
+                time.sleep(1)
                 curso_problematico = filtrando_curso(RA,CaminhoImg)
 
                 time.sleep(0.5)
