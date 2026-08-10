@@ -17,7 +17,7 @@ from totvs.fluxo_comum import (
 
 
 def executar_2953_qual():
-    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Ultima_base_critica_2953_qual.xlsx", dtype={"RA": str, "CODFILIAL": str})
+    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Ultima_base_critica_2953_qual.xlsx", dtype={"RA": str, "CODFILIAL": str, "CaminhoImg": str})
     cod_filial_unique = df_base_ra["CODFILIAL"].drop_duplicates().tolist()
 
     tempo_inicial = time.time()
@@ -30,7 +30,7 @@ def executar_2953_qual():
         #Status zero é o primeiro laço do loop
         primeiro_ra = True
 
-        for RA in df_filtrada["RA"]:
+        for RA, CaminhoImg in df_filtrada[["RA","CaminhoImg"]].itertuples(index=False, name=None):
             count += 1
             print(f"Processando {count}/{total} | Filial: {filial} | RA: {RA}")
 
@@ -46,7 +46,7 @@ def executar_2953_qual():
                 anexo_do_RA()
 
                 time.sleep(1)
-                curso_problematico = filtrando_curso(RA)
+                curso_problematico = filtrando_curso(RA,CaminhoImg)
 
                 if not curso_problematico:
                     time.sleep(0.5)
@@ -59,7 +59,7 @@ def executar_2953_qual():
                 trocando_RA(RA)
 
                 time.sleep(0.5)
-                curso_problematico = filtrando_curso(RA)
+                curso_problematico = filtrando_curso(RA,CaminhoImg)
 
                 if not curso_problematico:
                     time.sleep(0.5)

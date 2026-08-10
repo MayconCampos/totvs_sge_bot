@@ -42,7 +42,29 @@ def verificacao_imagem(RA):
     RAs_curso_problematico.append(RA)
     return True
 
+def filtrando_curso(RA,CaminhoImg):
+    curso_especifco = ler_imagem(CaminhoImg)
+    clicar_imagem(curso_especifco,2)
 
+    time.sleep(1.5)
+    curso_problematico = verificacao_imagem(RA)
+
+    if curso_problematico:
+        return True
+
+    # Campo Complementar - Produção DN
+    time.sleep(0.5)
+    coord_seta_campo_dm = ler_imagem(r"location/06.Aba_de_ajuste_curso/seta_para_campo_complemento.png")
+    personalizar_clique(coord_seta_campo_dm, x_deslocamento=25, quantidade=4)
+
+    # Produção DN
+    time.sleep(0.5)
+    coord_producao_dn = ler_imagem(r"location/06.Aba_de_ajuste_curso/aba_de_ajuste.png")
+    clicar_imagem(coord_producao_dn, quantidade=4)
+
+    return False
+
+"""
 def filtrando_curso(RA):
     coord_curso = ler_imagem(
         #r"location/06.Aba_de_ajuste_curso/2953_qual/assentador_de_revestimentos_ceramicos.png",
@@ -87,6 +109,7 @@ def filtrando_curso(RA):
     clicar_imagem(coord_producao_dn, quantidade=4)
 
     return False
+"""
 
 def ajuste_campo_complementar():
     #Tem parceria?
