@@ -3,6 +3,7 @@ import time
 import pandas as pd
 
 from robos.critica_2953_tec.fluxo import (
+    RAs_curso_problematico,
     ajuste_campo_complementar,
     filtrando_curso,
 )
@@ -16,7 +17,7 @@ from totvs.fluxo_comum import (
 
 
 def executar_2953_tec():
-    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\teste.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str})
+    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Novissimo_ensino_medio_c1_1000h.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str, "CaminhoImg": str})
     cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
 
     tempo_inicial = time.time()
@@ -29,7 +30,8 @@ def executar_2953_tec():
         #Status zero é o primeiro laço do loop
         primeiro_ra = True
 
-        for RA in df_filtrada["RegistroAluno"]:
+        for RA, CaminhoImg in df_filtrada[["RegistroAluno", "CaminhoImg"]].itertuples(index=False, name=None):
+            CaminhoImg = CaminhoImg.replace("\t","").strip()
             count += 1
             print(f"Processando {count}/{total} | Filial: {filial} | RA: {RA}")
 
@@ -45,10 +47,12 @@ def executar_2953_tec():
                 anexo_do_RA()
 
                 time.sleep(0.5)
-                filtrando_curso()
+                curso_problematico = filtrando_curso(RA,CaminhoImg)
 
                 time.sleep(0.5)
-                ajuste_campo_complementar()
+                if not curso_problematico:
+                    ajuste_campo_complementar()
+
                 primeiro_ra = False
 
             else:
@@ -56,10 +60,11 @@ def executar_2953_tec():
                 trocando_RA(RA)
 
                 time.sleep(0.5)
-                filtrando_curso()
+                curso_problematico = filtrando_curso(RA,CaminhoImg)
 
                 time.sleep(0.5)
-                ajuste_campo_complementar()
+                if not curso_problematico:
+                    ajuste_campo_complementar()
 
         eh_primeira_filial = False
 
@@ -68,7 +73,7 @@ def executar_2953_tec():
     segundos = tempo_decorrido % 60
 
     print(f"Tempo total: {minutos} min {segundos:.2f} s")
-
+    print(f"Lista de Ras problematicos: {RAs_curso_problematico}")
 
 if __name__ == "__main__":
     executar_2953_tec()
