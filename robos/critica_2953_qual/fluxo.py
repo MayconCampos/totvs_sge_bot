@@ -1,4 +1,5 @@
 import time
+from pathlib import Path
 
 import pyautogui
 
@@ -15,6 +16,8 @@ from robos.critica_2953_qual.regras import (
 
 
 RAs_curso_problematico = []
+
+PASTA_IMAGENS_CURSOS = Path("location/06.Aba_de_ajuste_curso/2953_qual")
 
 
 def verificacao_imagem(RA):
@@ -68,7 +71,10 @@ def filtrando_curso(RA,CaminhoImg):
     Retorno:
         True se o curso apresentou erro; False se está disponível para ajuste.
     """
-    curso_especifco = ler_imagem(CaminhoImg)
+    # A planilha identifica o arquivo do curso. A pasta e definida pelo
+    # proprio robo, evitando que a qualificacao use imagens do robo tecnico.
+    caminho_curso = PASTA_IMAGENS_CURSOS / Path(CaminhoImg).name
+    curso_especifco = ler_imagem(str(caminho_curso))
     clicar_imagem(curso_especifco,2)
 
     time.sleep(1.5)
