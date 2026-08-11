@@ -2,7 +2,7 @@ import time
 
 import pandas as pd
 
-from robos.critica_2953_qual.fluxo import (
+from robos.critica_2953_Qualificacao_Aprendizagem.fluxo import (
     RAs_curso_problematico,
     ajuste_campo_complementar,
     filtrando_curso,
@@ -15,7 +15,7 @@ from totvs.fluxo_comum import (
     trocando_RA,
 )
 
-def executar_2953_qual():
+def executar_2953_qualificacao_aprendizagem():
     """
     Executa a crítica 2953 de qualificação para todos os registros da base.
 
@@ -77,4 +77,4 @@ def executar_2953_qual():
     print(f"RAs com curso problemático: {RAs_curso_problematico}")
 
 if __name__ == "__main__":
-    executar_2953_qual()
+    executar_2953_qualificacao_aprendizagem()

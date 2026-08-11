@@ -1,5 +1,5 @@
 from robos.critica_2953_tec.main import executar_2953_tec
-from robos.critica_2953_qual.main import executar_2953_qual
+from robos.critica_2953_Qualificacao_Aprendizagem.main import executar_2953_qualificacao_aprendizagem
     
 def menu():
     print("Escolha o robô:")
@@ -11,7 +11,7 @@ def menu():
     if opcao == "1":
         executar_2953_tec()
     elif opcao == "2":
-        executar_2953_qual()
+        executar_2953_qualificacao_aprendizagem()
     else:
         print("Opção inválida.")
 

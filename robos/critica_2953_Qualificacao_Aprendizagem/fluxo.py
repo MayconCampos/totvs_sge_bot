@@ -10,14 +10,16 @@ from core.funcoes import (
     passar_campos,
     personalizar_clique,
 )
-from robos.critica_2953_qual.regras import (
+from robos.critica_2953_Qualificacao_Aprendizagem.regras import (
     aplicar_regras
 )
 
 
 RAs_curso_problematico = []
 
-PASTA_IMAGENS_CURSOS = Path("location/06.Aba_de_ajuste_curso/2953_qual")
+PASTA_IMAGENS_CURSOS = Path(
+    "location/06.Aba_de_ajuste_curso/2953_qualificao_aprendizagem"
+)
 
 
 def verificacao_imagem(RA):
