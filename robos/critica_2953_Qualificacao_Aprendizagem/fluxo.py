@@ -18,7 +18,7 @@ from robos.critica_2953_Qualificacao_Aprendizagem.regras import (
 RAs_curso_problematico = []
 
 PASTA_IMAGENS_CURSOS = Path(
-    "location/06.Aba_de_ajuste_curso/2953_qualificao_aprendizagem"
+    "location/06.Aba_de_ajuste_curso/2953_qualificacao_aprendizagem"
 )
 
 
