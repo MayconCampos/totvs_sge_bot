@@ -56,7 +56,7 @@ def ler_imagem(*imagens, tempo_limite=15):
             coordenada = pyautogui.locateOnScreen(
                 imagem,
                 grayscale=True,
-                confidence=0.95
+                confidence=0.85
             )
 
             if coordenada is not None:
