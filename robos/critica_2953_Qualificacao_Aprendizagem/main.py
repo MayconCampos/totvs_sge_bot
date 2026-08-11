@@ -23,7 +23,7 @@ def executar_2953_qualificacao_aprendizagem():
     RA no TOTVS e trata exclusivamente o curso indicado em CaminhoImg.
     Ao final, exibe o tempo de execução e os RAs com cursos problemáticos.
     """
-    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Ultima_base_critica_2953_qual.xlsx", dtype={"RA": str, "CODFILIAL": str, "CaminhoImg": str})
+    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Base_2953_qualificacao_aprendizagem.xlsx", dtype={"RA": str, "CODFILIAL": str, "CaminhoImg": str})
     cod_filial_unique = df_base_ra["CODFILIAL"].drop_duplicates().tolist()
 
     tempo_inicial = time.time()
