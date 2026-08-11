@@ -4,7 +4,7 @@ from robos.critica_2953_Qualificacao_Aprendizagem.main import executar_2953_qual
 def menu():
     print("Escolha o robô:")
     print("1 - Crítica 2953 Técnico")
-    print("2 - Crítica 2953 Qualificação")
+    print("2 - Crítica 2953 ajuste para Qualificação ou Aprendizagem")
 
     opcao = input("Opção: ")
 
