@@ -102,23 +102,33 @@ def ajuste_campo_complementar():
     passar_campos(1)
     pyautogui.press("enter")
 
-    # Campo Parceiria
+    # Campo Parceria
     time.sleep(0.5)
     coord_campo_parceria= ler_imagem(r"location/07.ajuste_cursos/aba_parceria.png")
     personalizar_clique(coord_campo_parceria,y_deslocamento=20)
     conteudo = copiar_conteudo()
     preencher_campo_parceria(conteudo)
-    passar_campos(quantidade= 3)
+    time.sleep(0.5)
+    passar_campos(1)
 
     # Campo Estado
-    time.sleep(1)
+    coord_campo_estado = ler_imagem(r"location/07.ajuste_cursos/aba_estado.png")
+    personalizar_clique(coord_campo_estado, y_deslocamento=20)
+    copiar_conteudo()
     preencher_campo_estado()
-    passar_campos(quantidade= 4)
+    time.sleep(0.5)
+    passar_campos(1)
 
     #Campo instituição
     time.sleep(0.5)
+    coord_campo_instituicao = ler_imagem(
+        r"location/07.ajuste_cursos/aba_instituicao.png"
+    )
+    personalizar_clique(coord_campo_instituicao, y_deslocamento=20)
+    copiar_conteudo()
     preencher_campo_instituicao()
-    passar_campos(quantidade= 1)
+    time.sleep(0.5)
+    passar_campos(1)
 
     #Finalizando correção
     time.sleep(0.5)

@@ -10,7 +10,7 @@ def preencher_campo_tem_parceria(conteudo):
     Parâmetros:
         conteudo: Valor atual copiado do campo.
     """
-    if conteudo == "1" or conteudo =="0":
+    if conteudo in ("","0","1"):
             pyautogui.write("1")
 
 def preencher_campo_parceria(conteudo):
@@ -35,4 +35,4 @@ def preencher_campo_instituicao():
     """
     Preenche o campo de instituição com SEDUC.
     """
-    pyautogui.write("SEDUC")
+    pyautogui.write("410")

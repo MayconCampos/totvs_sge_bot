@@ -17,8 +17,8 @@ from totvs.fluxo_comum import (
 
 
 def executar_2953_tec():
-    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Novissimo_ensino_medio_c1_1000h.xlsx", dtype={"RegistroAluno": str, "CodFilialSGE": str, "CaminhoImg": str})
-    cod_filial_unique = df_base_ra["CodFilialSGE"].drop_duplicates().tolist()
+    df_base_ra = pd.read_excel(r"C:\Users\manoel.campos\OneDrive - SFIEMT\Área de Trabalho\AutomatizacaoERP\Base_RAs\Novissimo_ensino_medio_c1_1000h.xlsx", dtype={"RA": str, "CODFILIAL": str, "CaminhoImg": str})
+    cod_filial_unique = df_base_ra["CODFILIAL"].drop_duplicates().tolist()
 
     tempo_inicial = time.time()
     eh_primeira_filial = True
@@ -26,11 +26,11 @@ def executar_2953_tec():
     total = len(df_base_ra)
 
     for filial in cod_filial_unique:
-        df_filtrada = df_base_ra[df_base_ra["CodFilialSGE"] == filial]
+        df_filtrada = df_base_ra[df_base_ra["CODFILIAL"] == filial]
         #Status zero é o primeiro laço do loop
         primeiro_ra = True
 
-        for RA, CaminhoImg in df_filtrada[["RegistroAluno", "CaminhoImg"]].itertuples(index=False, name=None):
+        for RA, CaminhoImg in df_filtrada[["RA", "CaminhoImg"]].itertuples(index=False, name=None):
             CaminhoImg = CaminhoImg.replace("\t","").strip()
             count += 1
             print(f"Processando {count}/{total} | Filial: {filial} | RA: {RA}")
