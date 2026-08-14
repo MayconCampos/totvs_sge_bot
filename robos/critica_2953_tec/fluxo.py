@@ -22,6 +22,24 @@ RAs_curso_problematico = []
 PASTA_IMAGENS_CURSOS = Path("location/06.Aba_de_ajuste_curso/2953_tec")
 
 
+def tratar_pop_up_inicial():
+    """Fecha o aviso exibido ao abrir o curso, quando ele estiver presente."""
+    coord_erro = pyautogui.locateOnScreen(
+        r"location/06.Aba_de_ajuste_curso/exception/Erro.png",
+        grayscale=True,
+        confidence=0.95,
+    )
+
+    if coord_erro is None:
+        return
+
+    coord_ok = ler_imagem(
+        r"location/06.Aba_de_ajuste_curso/exception/OK_inicial.png"
+    )
+    clicar_imagem(coord_ok)
+    time.sleep(0.5)
+
+
 def verificacao_imagem(RA):
     """
     Verifica se a seta para o campo complementar foi exibida.
@@ -72,9 +90,12 @@ def filtrando_curso(RA,CaminhoImg):
     curso_especifco = ler_imagem(str(caminho_curso))
     clicar_imagem(curso_especifco,2)
     time.sleep(3)
+
+    tratar_pop_up_inicial()
     curso_problematico = verificacao_imagem(RA)
     if curso_problematico:
         return True
+    
     # Campo Complementar - Produção DN
     time.sleep(0.5)
     coord_seta_campo_dm = ler_imagem(r"location/06.Aba_de_ajuste_curso/seta_para_campo_complemento.png")
